@@ -1,0 +1,420 @@
+
+<script src="http://www.google.com/jsapi" type="text/javascript"></script> 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<link href="https://fonts.cdnfonts.com/css/chalkduster" rel="stylesheet">
+<style>
+    @import url('https://fonts.cdnfonts.com/css/chalkduster');
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<!-- If you need support for additional languages, include them here -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link href="style.css" rel="stylesheet"/>
+<link href="fontawesome.all.min.css" rel="stylesheet"/>
+<link ref="equation style" href="eq.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<script defer src="fontawesome.all.min.js"></script>
+
+
+<html>
+    <!-- <style>
+        body, html {
+          height: 200%;
+          margin: 0;
+          background: linear-gradient(to bottom, rgba(157, 255, 0, 0.749), rgba(255, 157, 0, 0.629), rgba(255, 157, 0, 0.629), rgba(157, 255, 0, 0.749));
+        }
+    </style> -->
+  <head>
+		<title>SpeeD</title>
+		<meta property="og:title" content="A Simple and Effective Acceleration Approach for Diffusion Model Training." />
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+
+  <body>
+    <br>
+        <center>
+			  <span class="near-black" style="font-size:36px;font-weight:bold">A Closer Look at Time Steps is Worthy of <br>Triple Speed-Up for Diffusion Model Training</span>
+			  
+			  <br>
+              <br>
+
+
+	  		<table align=center width=800px>
+	  	        <td align=center width=150px>
+	  				<center>
+	  					<span style="font-size:24px"><a href="https://kaiwang960112.github.io/">Kai Wang</a>
+						<sup style="font-size: 0.7em;left: -0.3em">2</sup>
+						</span>
+		  			</center>
+		  		</td>
+	  	        <td align=center width=150px>
+	  				<center>
+	  					<span style="font-size:24px">
+                        <!-- <a href="https://scholar.google.com/citations?user=c0WCD74AAAAJ"> -->
+                            Yukun Zhou
+                        <!-- </a> -->
+						  <sup style="font-size: 0.7em;left: -0.3em">1,2</sup>
+						</span>
+		  			</center>
+		  		</td>
+	  	        <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://scholar.google.com/citations?user=B6f3ImkAAAAJ">Mingjia Shi</a>                            
+						<sup style="font-size: 0.7em;left: -0.3em">2</sup>
+						</span>
+                    </center>
+                </td>
+                
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://zhihang.cc/"> Zhihang Yuan</a>
+                      <sup style="font-size: 0.7em;left: -0.3em">3</sup>
+                      </span>
+                    </center>
+                </td>
+			</table>
+
+            <table align=center width=900px>
+                
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://42shawn.github.io/">Yuzhang Shang</a>
+                        <sup style="font-size: 0.7em;left: -0.3em">4</sup>
+                      </span>
+                    </center>
+                </td>
+				
+				<td align=center width=150px>
+					<center>
+						<span style="font-size:24px"><a href="https://42shawn.github.io/">Xiaojiang Peng</a>
+						<sup style="font-size: 0.7em;left: -0.3em">1</sup>
+					  </span>
+					</center>
+				</td>
+
+                <td align=center width=150px>
+					<center>
+						<span style="font-size:24px"><a href="https://personal.ntu.edu.sg/hanwangzhang/">Hanwang Zhang</a>
+						<sup style="font-size: 0.7em;left: -0.3em">5</sup>
+					  </span>
+					</center>
+				</td>
+
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://www.comp.nus.edu.sg/~youy/">Yang You</a>
+                        <sup style="font-size: 0.7em;left: -0.3em">2</sup>
+                      </span>
+                    </center>
+                </td>
+          </table>
+
+			<table align="center" width="600px">
+				<tbody>
+                    <tr>
+                        <td style="padding:10px">
+                            <sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">1</sup><img style="height:70px;" src="https://english.sztu.edu.cn/images/logo01.png">
+                        </td>
+						<td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">2</sup><img style="height:70px;" src="https://www.nus.edu.sg/images/default-source/identity-images/NUS_logo_full-horizontal.jpg">
+						</td>
+						<td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">3</sup><img style="height:70px;" src="https://cloud.infini-ai.com/assets/svg/logo_new.ceae5ff61719286384587.svg">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+            <table align="center" width="600px">
+				<tbody>
+                    <tr>
+                        <td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">4</sup><img style="height:70px;" src="https://www.iit.edu/themes/iit/assets/img/illinois-tech-red.svg">
+						</td>
+                        <td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">5</sup><img style="height:70px;" src="https://www.ntu.edu.sg/images/default-source/corporate/ntu_logo.png?sfvrsn=b5dd1d82_5">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+        <!-- <table align="center" width="500px">
+            <tbody>
+                <tr>
+                    <td align="center" width="500px">
+                        <center>
+                            <i><span style="font-size:14px; font-weight: 200">* corresponding author </span></i>
+                        </center>
+                    </td>
+                    <td align="center" width="500px">
+                        <center>
+                            <i><span style="font-size:14px; font-weight: 200">&#8224; equal contribution </span></i>
+                        </center>
+                    </td>
+                </tr>
+            </tbody>
+        </table> -->
+
+        <table width="800" border="0" align="center" class="menu"
+            style="margin-bottom: 20px;margin-top: 20px;font-weight: bold;font-size: 20px;">
+            <tbody>
+                <tr>
+                    <!-- arxiv link -->
+                    <td align="center">
+						<span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="vertical-align:top;height:26px">
+							<a style="color:inherit;text-decoration:none;font-size:15px" href="https://arxiv.org/pdf/2405.17403.pdf" target="_blank">
+                            <i height="20px" style="padding-right:2px;font-size:20px" class="ai ai-arxiv" aria-hidden="true"></i>
+							Paper
+							</a>
+						</span>
+                    </td>
+                    <!-- github link -->
+                    <td align="center">
+                    <span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="vertical-align:top;height:26px">
+                        <a style="color:inherit;text-decoration:none;font-size:15px" href="https://github.com/kaiwang960112/SpeeD" target="_blank">
+                        <svg height="20px" style="padding-right: 2px;font-size: 20px;" class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+                        Code
+                        </a>
+                    </span>
+                    </td>
+                    <!-- github_citation link -->
+                    <td align="center">
+                    <span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="vertical-align:top;height:26px">
+                        <a style="color:inherit;text-decoration:none;font-size:15px" href="https://github.com/kaiwang960112/SpeeD?tab=readme-ov-file#%EF%B8%8Fcitation" target="_blank">
+                        <svg height="20px" style="padding-right: 2px;font-size: 20px;" class="svg-inline--fa fa-quote-left fa-w-16" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="quote-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg>
+                        Bibtex
+                        </a>
+                    </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+	</center>
+		<br>
+        <hr>
+		  <table align=center width=1000px>
+            <tr>
+				<td align=center width=1300px>
+                    <img class="round" style="width:100px" src="figs/logo.png">
+                    <h1 class="title is-3">
+                        <span style="color: rgb(71, 140, 237);">Spee</span><span style="color: orange;">D</span>
+                        <span style="color: black;">: Closer Look at Time Steps</span></h1>
+				  <center>
+                    $$
+                    \text{Take a closer look at process increments }\delta_{t}:=x_{t+1}-x_{t} \text{ over time steps } t \text{.}
+                    $$
+                    <img class="round" style="width:1000px" src="figs/Findings.png"/>
+                    </center>
+                </td>
+			</tr>
+		</table>
+
+
+		<p>
+				
+		</p>
+	      <hr>
+
+	  		  <center><h1>Abstract</h1></center>
+			  <tr>
+                <td align=center width=1300px>
+                    <center>
+                    <p style="width: 950px; text-align: left;
+                    ">
+                    Training diffusion models is always a computation-intensive task. In this paper,
+                    we introduce a novel speed-up method for diffusion model training, called SpeeD,
+                    which is based on a closer look at time steps. Our key findings are: 
+                    i) Time steps can be empirically divided into acceleration, deceleration, and convergence areas based on the process increment.
+                    ii) These time steps are imbalanced, with many concentrated in the convergence area.
+                    iii) The concentrated steps provide limited benefits for diffusion training.
+                    To address this, we design an asymmetric sampling strategy that reduces the frequency of steps from the convergence area
+                    while increasing the sampling probability for steps from other areas. Additionally,
+                    we propose a weighting strategy to emphasize the importance of time steps with
+                    rapid-change process increments. As a plug-and-play and architecture-agnostic
+                    approach, SpeeD consistently achieves 3× acceleration across various diffusion
+                    architectures, datasets, and tasks. Notably, due to its simple design, our approach
+                    significantly reduces the cost of diffusion model training with minimal overhead.
+                    Our research enables more researchers to train diffusion models at a lower cost
+                            </p>
+                        </center>
+                </td>
+                
+			  </tr>
+		  <hr>
+          <center><h1>Method</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:900px; height: 500px" src="figs/Method.png"/></img>
+                  <p style="width: 1000px; text-align: left;
+                  ">
+                    Illustration of the proposed SpeeD framework. Our approach consists of two proceses, asymmetric sampling and change-aware weighting. 
+					Asymmetric Sampling: Suppress the attendance of the time step in convergence areas.
+                    Change-Aware Weighting: The faster changing time steps in the diffusion process are given more weight.
+                  </p>
+                  
+              </center>
+            </td>
+        </tr>
+
+        <hr>
+          <center><h1>Results</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:1000px" src="figs/results.png"/>
+			  <p style="width: 1000px; text-align: left;
+                  ">
+				  	Our method obtains similar or even higher performance than baselines. The results of SpeeD are averaged in three runs. <b> Bold entries </b>are best results.
+                  </p>
+				</center>
+
+            </td>
+        </tr>
+
+		<!-- <hr>
+          <center><h1>Ablations</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:1000px" src="figs/ablation.png"/>
+				  <p style="width: 1000px; text-align: left;
+                  ">
+				  P-diff main ablation experiments.
+				   We ablate the number of orieinal models K, the location of applying our approach, and the effect of noise augmentation. 
+				   The default setings are K= 200, 
+				  applying p-diff on the deep BN parameters (between layer16 to 18), and using noise augmentation in the input parameters and latent representations. 
+				  Defaults are marked in gray. <b>Bold entries </b> are best results. 
+
+                  </p>
+              </center>
+            </td>
+        </tr> 
+        
+        <hr>
+          <center><h1>Is P-diff Only memorizing?</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+				<p style="width: 1000px; text-align: left;
+				">
+				Questions and experiment designs. Here, we frst askthe following questions: 1) Does p-diff just memorize the samples from the original models 
+				in the training set? 2) Is there any difference among adding noise or fne-tuning the original models, and the models generated by our approach?
+				The similarity represents the Intersection of Union (loU) over wrong predictions between/among two models. The IoU can be formulated as follows,
+				</p>
+				<div style="text-align: center;">
+					$$ \mathrm{IoU} = |P_{1}^{\mathrm{wrong}} \cap P_{2}^{\mathrm{wrong}}|/|P_{1}^{\mathrm{wrong}} \cup P_{2}^{\mathrm{wrong}}|$$
+				  </div>
+				
+				
+
+				  <img class="round" style="width:1000px" src="figs/diversity.png"/>
+				  <p style="width: 1000px; text-align: left;
+                  ">
+				   
+				  (a) shows the comparisons in four cases. It shows our p-diff can generate new parameters that perform differently with their training data (i.e. original models). 
+				  (b) displays the accuracy and max similarity of fine-tuned.noise-added, and p-diff models. All the maximum similarities are calculated with the original models. Our generated models achieve diverse similarities and superior performances compared to the original models.
+				  (c) presents the t-SNE of latent representations of the original models, p-diff models, and adding noise operation.
+                  </p>
+              </center>
+            </td>
+        </tr>
+
+		<tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:500px" src="figs/iou_k_scatter.png"/>
+				  <p style="width: 1000px; text-align: left;">
+					We visualize the max similarities between original and generated models with different K. The similarity range of these generated models becomes larger as K increases, demonstrating our approach can generate parameters that perform differently from the original models.
+			  </p>
+              </center>
+            </td>
+        </tr>
+
+          <hr>
+
+			<tr>
+					<left>
+						<center><h1>Acknowledgements</h1></center>
+						We thank <a href="https://kaiminghe.github.io/">Kaiming He</a>, 
+                        <a href="https://www.cogai4sci.com/">Dianbo Liu</a>, 
+                        <a href="https://scholar.google.com/citations?user=B6f3ImkAAAAJ&hl=en">Mingjia Shi</a>, 
+                        <a href="https://scholar.google.com/citations?user=NmwjI0AAAAAJ&hl=en">Zheng Zhu</a>, 
+						<a href="https://www.bozhao.me/">Bo Zhao</a>,
+                        <a href="https://jia-wei-liu.github.io/">Jiawei Liu</a>, 
+                        <a href="https://ai.comp.nus.edu.sg/people/yong/">Yong Liu</a>, 
+                        <a href="https://scholarT.google.com/citations?user=I04VhPMAAAAJ&hl=zh-CN">Ziheng Qin</a>, 
+                        <a href="https://zhengzangw.github.io/">Zangwei Zheng</a>, 
+                        <a href="https://sites.google.com/view/yifan-zhang/%E9%A6%96%E9%A1%B5">Yifan Zhang</a>, 
+                        <a href="https://scholar.google.com/citations?user=KRUTk7sAAAAJ&hl=zh-CN">Xiangyu Peng</a>, 
+                        <a href="https://www.comp.nus.edu.sg/~hongyan/">Hongyan Chang</a>, 
+						<a href="https://davidyyd.github.io/">David Yin</a>,
+						<a href="https://daveredrum.github.io/">Dave Zhenyu Chen</a>,
+						<a href="https://ahmadsajedii.github.io/">Ahmad Sajedi</a>, and 
+						<a href="https://georgecazenavette.github.io/">George Cazenavette</a>
+                        for valuable discussions and feedbacks.
+					</left>
+				</td>
+			</tr>
+  		<br>
+		<hr> -->
+
+		<table align=center width=1000px>
+			<tr>
+				<td width=1000px>
+					<left>
+						<center><h1>BibTeX</h1></center>
+						<left>
+							<code>
+                                @article{wang2024closer, <br>
+                                    title={A Closer Look at Time Steps is Worthy of Triple Speed-Up for Diffusion Model Training}, <br>
+                                    author={Kai Wang, Yukun Zhou, Mingjia Shi, Zhihang Yuan, Yuzhang Shang, Xiaojiang Peng, Hanwang Zhang and Yang You}, <br>
+                                    year={2024}, <br>
+                                    journal={arXiv preprint arXiv:2405.17403}, <br>
+                              }
+							</code>
+
+						</left>
+					</left>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+
+		<hr>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+					Please feel free to contact us via email at <a href="mailto:kai.wang@comp.nus.edu.sg">Kai Wang</a>, <a href="mailto:ykzhou8981389@gmail.com">Yukun Zhou</a> or <a href="mailto:3101ihs@gmail.com">Mingjia Shi</a> for any inquiries or assistance.
+              </center>
+            </td>
+        </tr>
+		<script>
+			var coll = document.getElementsByClassName("collapsible");
+			var i;
+	
+			for (i = 0; i < coll.length; i++) {
+				coll[i].addEventListener("click", function() {
+					this.classList.toggle("active");
+					var content = this.nextElementSibling;
+					if (content.style.display === "block") {
+						content.style.display = "none";
+					} else {
+						content.style.display = "block";
+					}
+				});
+			}
+		</script>
+</body>	
